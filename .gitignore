@@ -1,0 +1,6 @@
+.idea/
+bin/
+obj/
+bootstrap/
+jquery*/
+.DS_Store
