@@ -4,3 +4,4 @@ obj/
 bootstrap/
 jquery*/
 .DS_Store
+appsettings.json
