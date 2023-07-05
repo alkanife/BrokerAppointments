@@ -1,29 +1,27 @@
-@model IEnumerable<BrokerAppointements.Models.Broker>
+@model IEnumerable<BrokerAppointements.Models.BrokerModel>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
-
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-sm btn-primary" asp-action="Create">Ajouter un nouveau courtier</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                Nom de famille
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                Prénom
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Mail)
+                Adresse mail
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
+                Numéro de téléphone
             </th>
             <th></th>
         </tr>
@@ -44,9 +42,10 @@
                 @Html.DisplayFor(modelItem => item.PhoneNumber)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.BrokerId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.BrokerId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.BrokerId">Delete</a>
+                <a class="btn btn-sm btn-primary" asp-controller="Appointment" asp-action="Create" asp-route-id="@item.BrokerId">Ajouter un rendez-vous</a>
+                <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.BrokerId">Voir le profil</a>
+                <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.BrokerId">Modifier</a>
+                <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.BrokerId">Delete</a>
             </td>
         </tr>
 }

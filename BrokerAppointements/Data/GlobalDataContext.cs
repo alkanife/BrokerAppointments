@@ -9,6 +9,7 @@ public class GlobalDataContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder options)
         => options.UseSqlServer(RemoteConnectionString.ConnectionString);
     
-    public DbSet<Broker> brokers { get; set; }
-    public DbSet<Customer> customers { get; set; }
+    public DbSet<BrokerModel> brokers { get; set; }
+    public DbSet<CustomerModel> customers { get; set; }
+    public DbSet<AppointmentModel> appointment { get; set; }
 }

@@ -22,7 +22,10 @@ namespace BrokerAppointements.Controllers
         // GET: Customer
         public async Task<IActionResult> Index()
         {
-              return View(await _context.customers.ToListAsync());
+            if (_context.customers == null)
+                return Problem("Entity set 'GlobalDataContext.customers'  is null.");
+
+            return View(await _context.customers.FromSql($"select * from customers order by LastName;").ToListAsync());
         }
 
         // GET: Customer/Details/5
@@ -33,14 +36,14 @@ namespace BrokerAppointements.Controllers
                 return NotFound();
             }
 
-            var customer = await _context.customers
+            var customerModel = await _context.customers
                 .FirstOrDefaultAsync(m => m.CustomerId == id);
-            if (customer == null)
+            if (customerModel == null)
             {
                 return NotFound();
             }
 
-            return View(customer);
+            return View(customerModel);
         }
 
         // GET: Customer/Create
@@ -54,15 +57,15 @@ namespace BrokerAppointements.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CustomerId,LastName,FirstName,Mail,PhoneNumber,Budget")] Customer customer)
+        public async Task<IActionResult> Create([Bind("CustomerId,LastName,FirstName,Mail,PhoneNumber,Budget")] CustomerModel customerModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(customer);
+                _context.Add(customerModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(customer);
+            return View(customerModel);
         }
 
         // GET: Customer/Edit/5
@@ -73,12 +76,12 @@ namespace BrokerAppointements.Controllers
                 return NotFound();
             }
 
-            var customer = await _context.customers.FindAsync(id);
-            if (customer == null)
+            var customerModel = await _context.customers.FindAsync(id);
+            if (customerModel == null)
             {
                 return NotFound();
             }
-            return View(customer);
+            return View(customerModel);
         }
 
         // POST: Customer/Edit/5
@@ -86,9 +89,9 @@ namespace BrokerAppointements.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CustomerId,LastName,FirstName,Mail,PhoneNumber,Budget")] Customer customer)
+        public async Task<IActionResult> Edit(int id, [Bind("CustomerId,LastName,FirstName,Mail,PhoneNumber,Budget")] CustomerModel customerModel)
         {
-            if (id != customer.CustomerId)
+            if (id != customerModel.CustomerId)
             {
                 return NotFound();
             }
@@ -97,12 +100,12 @@ namespace BrokerAppointements.Controllers
             {
                 try
                 {
-                    _context.Update(customer);
+                    _context.Update(customerModel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CustomerExists(customer.CustomerId))
+                    if (!CustomerModelExists(customerModel.CustomerId))
                     {
                         return NotFound();
                     }
@@ -113,7 +116,7 @@ namespace BrokerAppointements.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(customer);
+            return View(customerModel);
         }
 
         // GET: Customer/Delete/5
@@ -124,14 +127,14 @@ namespace BrokerAppointements.Controllers
                 return NotFound();
             }
 
-            var customer = await _context.customers
+            var customerModel = await _context.customers
                 .FirstOrDefaultAsync(m => m.CustomerId == id);
-            if (customer == null)
+            if (customerModel == null)
             {
                 return NotFound();
             }
 
-            return View(customer);
+            return View(customerModel);
         }
 
         // POST: Customer/Delete/5
@@ -143,17 +146,17 @@ namespace BrokerAppointements.Controllers
             {
                 return Problem("Entity set 'GlobalDataContext.customers'  is null.");
             }
-            var customer = await _context.customers.FindAsync(id);
-            if (customer != null)
+            var customerModel = await _context.customers.FindAsync(id);
+            if (customerModel != null)
             {
-                _context.customers.Remove(customer);
+                _context.customers.Remove(customerModel);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CustomerExists(int id)
+        private bool CustomerModelExists(int id)
         {
           return (_context.customers?.Any(e => e.CustomerId == id)).GetValueOrDefault();
         }

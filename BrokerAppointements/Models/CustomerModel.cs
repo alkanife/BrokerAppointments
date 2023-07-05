@@ -1,7 +1,12 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace BrokerAppointements.Models;
 
-public class Customer
+[Table("customers")]
+public class CustomerModel
 {
+    [Key]
     public int CustomerId { get; set; }
     public string LastName { get; set; }
     public string FirstName { get; set; }
@@ -9,11 +14,11 @@ public class Customer
     public string PhoneNumber { get; set; }
     public int Budget { get; set; }
 
-    public Customer()
+    public CustomerModel()
     {
     }
 
-    public Customer(int customerId, string lastName, string firstName, string mail, string phoneNumber, int budget)
+    public CustomerModel(int customerId, string lastName, string firstName, string mail, string phoneNumber, int budget)
     {
         CustomerId = customerId;
         LastName = lastName;
