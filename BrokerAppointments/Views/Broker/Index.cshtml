@@ -1,0 +1,54 @@
+@model IEnumerable<BrokerAppointments.Models.BrokerModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Tous les courtiers</h1>
+
+<p>
+    <a class="btn btn-outline-primary" asp-action="Create">Ajouter un nouveau courtier</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nom
+            </th>
+            <th>
+                Prénom
+            </th>
+            <th>
+                Adresse mail
+            </th>
+            <th>
+                Numéro de téléphone
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.BrokerId">Voir en détail</a>
+                <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.BrokerId">Modifier</a>
+                <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.BrokerId">Supprimer</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

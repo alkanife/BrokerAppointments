@@ -1,0 +1,53 @@
+﻿@model List<ParsedAppointment>;
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1>Bonjour</h1>
+
+<hr/>
+
+<h3>5 Prochaines rendez-vous :</h3>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            Date et heure
+        </th>
+        <th>
+            Sujet
+        </th>
+        <th>
+            Courtier
+        </th>
+        <th>
+            Client
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.DateTime
+            </td>
+            <td>
+                @item.Subject
+            </td>
+            <td>
+                @item.BrokerName
+            </td>
+            <td>
+                @item.CustomerName
+            </td>
+            <td>
+                <a asp-controller="Appointment" class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.AppointmentId">Voir en détail</a>
+                <a asp-controller="Appointment" class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.AppointmentId">Modifier</a>
+                <a asp-controller="Appointment" class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.AppointmentId">Supprimer</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
