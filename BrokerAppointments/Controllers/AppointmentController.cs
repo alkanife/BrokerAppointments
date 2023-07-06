@@ -19,24 +19,15 @@ namespace BrokerAppointments.Controllers
             _context = context;
         }
 
-        // GET: Appointment
-        public async Task<IActionResult> Index()
+        public IActionResult Index(DateTime? startDate)
         {
             if (_context.Appointments == null)
                 return Problem("Entity set 'GlobalDataContext.appointment'  is null.");
-            
-            /*
-             select a.DateHour,
-                   a.Subject,
-                   b.LastName + ' ' + b.LastName as 'Broker',
-                   c.LastName + ' ' + c.LastName as 'Customer'
-            from appointements a
-            join brokers b on a.BrokerId = b.BrokerId
-            join customers c on a.CustomerId = c.CustomerId
-            order by a.DateHour;
-             */
-            
+
+            startDate ??= DateTime.Parse("2000-01-01 00:00:00.000");
+
             var dataObj = _context.Appointments
+                .Where(appointment => appointment.DateHour >= startDate)
                 .Join(
                     _context.Brokers,
                     appointment => appointment.BrokerId,
@@ -61,9 +52,37 @@ namespace BrokerAppointments.Controllers
                     }
                 )
                 .OrderBy(appointment => appointment.DateHour).ToList();
+
+            List<ParsedAppointment> parsedAppointments = new List<ParsedAppointment>();
+            
+            foreach (var data in dataObj)
+            {
+                var parsedAppointment = new ParsedAppointment();
+                parsedAppointment.AppointmentId = data.AppointmentId;
+                
+                //crop subject
+                var split = data.Subject.Split(" ");
+                var splited = data.Subject;
+                if (split.Length > 10)
+                {
+                    splited = "";
+                    for (var i = 0; i < 5; i++)
+                        splited += split[i] + " ";
+                }
+                parsedAppointment.Subject = splited + "(...)";
+                
+                // date et heure
+                // todo
+
+                parsedAppointment.DateTime = data.DateHour;
+                parsedAppointment.BrokerName = data.BrokerName;
+                parsedAppointment.CustomerName = data.CustomerName;
+                
+                parsedAppointments.Add(parsedAppointment);
+            }
             
             // todo: j'ai dû retirer le model de la view car il voulait pas le prendre en argument
-            return View(dataObj);
+            return View(parsedAppointments);
         }
 
         // GET: Appointment/Details/5
@@ -90,6 +109,12 @@ namespace BrokerAppointments.Controllers
             return View();
         }
 
+        // GET: Appointment/Create
+        /*public IActionResult CreateFromClient(string? clientName)
+        {
+            return View("Create", clientName);
+        }*/
+
         // POST: Appointment/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -101,7 +126,7 @@ namespace BrokerAppointments.Controllers
             {
                 _context.Add(appointmentModel);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", new { id = appointmentModel.AppointmentId});
             }
             return View(appointmentModel);
         }
@@ -152,7 +177,7 @@ namespace BrokerAppointments.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", new { id = appointmentModel.AppointmentId});
             }
             return View(appointmentModel);
         }
@@ -191,7 +216,7 @@ namespace BrokerAppointments.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Home");
         }
 
         private bool AppointmentModelExists(int id)

@@ -8,8 +8,8 @@
 
 <hr/>
 
-<h3>5 Prochaines rendez-vous :</h3>
-<table class="table">
+<h4 style="margin-bottom: 15px;">Prochains rendez-vous</h4>
+<table class="table table-sm table-striped table-bordered">
     <thead>
     <tr>
         <th>
@@ -42,12 +42,16 @@
             <td>
                 @item.CustomerName
             </td>
-            <td>
-                <a asp-controller="Appointment" class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.AppointmentId">Voir en détail</a>
-                <a asp-controller="Appointment" class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.AppointmentId">Modifier</a>
-                <a asp-controller="Appointment" class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.AppointmentId">Supprimer</a>
+            <td class="unstyled">
+                <a asp-controller="Appointment" class="btn btn-sm btn-secondary" asp-action="Details" asp-route-id="@item.AppointmentId">Détails...</a>
+                <a asp-controller="Appointment" class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.AppointmentId">✎</a>
+                <a asp-controller="Appointment" class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.AppointmentId">✖</a>
             </td>
         </tr>
     }
     </tbody>
 </table>
+
+<div class="container text-center">
+    <a asp-controller="Appointment" asp-action="Index">Voir plus...</a>
+</div>

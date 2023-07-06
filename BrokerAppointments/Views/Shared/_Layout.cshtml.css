@@ -9,6 +9,7 @@ a.navbar-brand {
 
 a {
   color: #0077cc;
+  text-decoration: none;
 }
 
 .btn-primary {
@@ -34,15 +35,20 @@ a {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+#navContainer {
+  margin-bottom: 15px;
 }
 
 .footer {
+  opacity: 70%;
   position: absolute;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
-  line-height: 60px;
+  margin-bottom: 15px;
+}
+
+.unstyled {
+  background: none;
+  border: none;
 }

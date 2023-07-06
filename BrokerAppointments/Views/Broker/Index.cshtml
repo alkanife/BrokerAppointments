@@ -5,11 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Tous les courtiers</h1>
-
-<p>
-    <a class="btn btn-outline-primary" asp-action="Create">Ajouter un nouveau courtier</a>
-</p>
+<h4>Tous les courtiers</h4>
+<hr />
 <table class="table">
     <thead>
         <tr>
@@ -44,9 +41,10 @@
                 @Html.DisplayFor(modelItem => item.PhoneNumber)
             </td>
             <td>
-                <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.BrokerId">Voir en détail</a>
-                <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.BrokerId">Modifier</a>
-                <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.BrokerId">Supprimer</a>
+                <a class="btn btn-sm btn-primary text-white" asp-controller="Appointment" asp-action="Create" asp-route-id="@item.BrokerId">+ RDV</a>
+                <a class="btn btn-sm btn-secondary text-white" asp-action="Details" asp-route-id="@item.BrokerId">Détails...</a>
+                <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.BrokerId">✎</a>
+                <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.BrokerId">✖</a>
             </td>
         </tr>
 }

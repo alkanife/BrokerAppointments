@@ -9,42 +9,66 @@
     <link rel="stylesheet" href="~/BrokerAppointments.styles.css" asp-append-version="true"/>
 </head>
 <body>
-<header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container-fluid">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BrokerAppointments</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Broker" asp-action="Index">Courtiers</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Customer" asp-action="Index">Clients</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="Index">Rendez-vous</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
 <div class="container">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light">
+            <div class="container-fluid" id="navContainer">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><b><i>LMB</i></b></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Courtiers
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Broker" asp-action="Index">Tous les courtiers</a></li>
+                                <li><a class="dropdown-item disabled" asp-area="" asp-controller="Broker" asp-action="Index">Rechercher un courtier</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Broker" asp-action="Create">Ajouter un courtier</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Clients
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Customer" asp-action="Index">Tous les clients</a></li>
+                                <li><a class="dropdown-item disabled" asp-area="" asp-controller="Customer" asp-action="Index">Rechercher un client</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Customer" asp-action="Create">Ajouter un client</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Rendez-vous
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Appointment" asp-action="Index">Tous rendez-vous</a></li>
+                                <li><a class="dropdown-item disabled" asp-area="" asp-controller="Appointment" asp-action="Index">Rechercher un rendez-vous</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Appointment" asp-action="Create">Créer un rendez-vous</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
     <main role="main" class="pb-3">
         @RenderBody()
     </main>
 </div>
 
-<footer class="border-top footer text-muted">
-    <div class="container">
-        &copy; 2023 - BrokerAppointments
+<footer class="footer text-muted">
+    <div class="container text-center">
+        &copy; 2023 - [<b><i>LMB</i></b>] La Manu Business<br>
+        <span class="text-danger fw-bold">UTILISATION RÉSERVÉE AUX PERSONNES ACCRÉDITÉES</span>
     </div>
 </footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>

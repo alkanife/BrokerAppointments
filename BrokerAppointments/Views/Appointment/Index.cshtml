@@ -1,36 +1,34 @@
+@model List<ParsedAppointment>;
+
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Home Page";
 }
 
-<h1>Tous les rendez-vous</h1>
-
-<p>
-    <a class="btn btn-outline-primary" asp-action="Create">Créer un nouveau rendez-vous</a>
-</p>
+<h3>Rendez-vous</h3>
+<hr/>
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                Date et heure
-            </th>
-            <th>
-                Sujet
-            </th>
-            <th>
-                Courtier
-            </th>
-            <th>
-                Client
-            </th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>
+            Date et heure
+        </th>
+        <th>
+            Sujet
+        </th>
+        <th>
+            Courtier
+        </th>
+        <th>
+            Client
+        </th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+    @foreach (var item in Model) {
         <tr>
             <td>
-                @item.DateHour
+                @item.DateTime
             </td>
             <td>
                 @item.Subject
@@ -42,11 +40,11 @@
                 @item.CustomerName
             </td>
             <td>
-                <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.AppointmentId">Voir en détail</a>
-                <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.AppointmentId">Modifier</a>
-                <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.AppointmentId">Supprimer</a>
+                <a asp-controller="Appointment" class="btn btn-sm btn-secondary" asp-action="Details" asp-route-id="@item.AppointmentId">Détails...</a>
+                <a asp-controller="Appointment" class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.AppointmentId">✎</a>
+                <a asp-controller="Appointment" class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.AppointmentId">✖</a>
             </td>
         </tr>
-}
+    }
     </tbody>
 </table>
