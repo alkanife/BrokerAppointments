@@ -1,2 +1,1 @@
-# SimpleAppointements
-🇫🇷 First Web app with .NET C# (school project)
+Exercice pour comprendre le fonctionnement du MVC et d'Entity Framework : faire une application web de gestion de rendez-vous pour des courtiers.
