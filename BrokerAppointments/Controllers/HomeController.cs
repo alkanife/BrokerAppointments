@@ -63,7 +63,11 @@ public class HomeController : Controller
                 for (var i = 0; i < 5; i++)
                     splited += split[i] + " ";
             }
-            parsedAppointment.Subject = splited + "(...)";
+
+            if (splited.EndsWith(" "))
+                splited = splited.Remove(splited.Length - 1, 1);
+            
+            parsedAppointment.Subject = splited + "<i>...</i>";
             
             // date et heure
             // todo
